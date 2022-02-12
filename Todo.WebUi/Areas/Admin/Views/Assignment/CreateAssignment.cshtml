@@ -1,0 +1,37 @@
+﻿@model AssignmentAddDto
+@{
+    ViewData["Title"] = "EkleAssignment";
+    Layout = "~/Areas/Admin/Views/shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="CreateAssignment" method="post" class="w-75 mx-auto p-3">
+    <div class="form-group">
+        <label> Navn </label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <input type="text" asp-for="Name" class="form-control" />
+
+    </div>
+     <div class="form-group">
+        <label> Beskrivelse </label>
+        <span asp-validation-for="Explanation"  class="text-danger"></span>
+        <textarea asp-for="Explanation" class="form-control" ></textarea>
+
+    </div>
+     <div class="form-group">
+        <label> Valg prioritets tilstand </label>
+        <span asp-validation-for="@Model.UrgencyId" class="text-danger"></span>
+        <select asp-for="@Model.UrgencyId" class="form-control"
+        asp-items="ViewBag.Urgencys">
+            <option hidden value="-1"> Valg </option>
+
+        </select>
+
+    </div>
+    <button type="submit" class="btn btn-info btn-sm"> Gem </button>
+</form>
+
+@section JavaScript{
+
+    <script src="~/lib/jqueryValidate~/lib/jqueryValidate/jquery.validate.min.js"></script>
+    <script src="~/lib/jqueryUnoob~/lib/jqueryUnoob/jquery.validate.unobtrusive.min.js"></script>
+}

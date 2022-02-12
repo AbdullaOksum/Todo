@@ -1,0 +1,78 @@
+﻿@model ListAssignStaffDto
+@{
+    ViewData["Title"] = "AssignmentlendirPersonel";
+    Layout = "~/Areas/Admin/Views/shared/_AdminLayout.cshtml";
+}
+
+<div class="row mt-2">
+
+
+
+
+
+
+    <div class="col-md-4">
+
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center lead pt-2">Opgave Detaljer</h4>
+            </div>
+
+               <div class="card-body">
+                    <h5 class="card-title">@Model.Assignment.Name</h5>
+                    <p class="card-text">
+                        @Model.Assignment.Explanation
+                    </p>
+                    <p class="card-text">
+                        <strong> Prioritet:</strong> <span class="badge badge-primary"> @Model.Assignment.Urgency.Definition</span>
+                    </p>
+
+                </div>
+
+        </div>
+    </div>
+    <div class="col-md-8">
+         
+            <div class="card  mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Personale detaljer</h5>
+                </div>
+              
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="~/img/@Model.AppUser.Picture" class="card-img " style="height:10rem!important;" alt="@Model.AppUser.Name">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.AppUser.Name @Model.AppUser.SurName</h5>
+                            <p class="card-text">
+                                <GetAssignmentAppUserId app-user-id="@Model.AppUser.Id"></GetAssignmentAppUserId>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">@Model.AppUser.Email</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     <div class="col-md-12">
+            <form asp-action="AssignStaff" method="post">
+                <p class="lead">
+                    Du er ved at angive personale til denne opgave. Er du sikker på det ?
+                </p>
+                <div class="form-group text-center">
+                    <a asp-action="AssignStaff" asp-route-id="@Model.Assignment.Id" class="btn btn-primary "><i class="fas fa-chevron-circle-left mr-2"></i>
+                        Tilbage
+                        </a>
+                    <input type="hidden" name="PersonelId" value="@Model.AppUser.Id" />
+                    <input type="hidden" name="AssignmentId" value="@Model.Assignment.Id" />
+                    <button type="submit" class="btn btn-info "><i class="fas fa-check mr-2"></i>Ja</button>
+                </div>
+
+            </form>
+
+        </div>
+</div>
+

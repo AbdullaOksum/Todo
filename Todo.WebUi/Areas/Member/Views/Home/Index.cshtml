@@ -1,0 +1,109 @@
+﻿@{
+
+    Layout = "~/Areas/member/Views/shared/_MemberLayout.cshtml";
+}
+
+
+<div class="row mt-3">
+   
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Færdig gjordte arbejde</h4>
+                @if (ViewBag.CompletetsignmentCount > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.CompletetsignmentCount</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="FinishedAssignment" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                        Du har ikke færdig gjordt et arbejde endnu
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Igangværende arbejde</h4>
+                @if (ViewBag.NonCompletetAssignmentCount > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.NonCompletetAssignmentCount</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="WorkInProgress" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                        Du har ingen igangværende arbejde
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+     <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Yazdiginiz Rapor sayisi</h4>
+                @if (ViewBag.ReportCount > 0)
+                {
+                    <p class="card-text display-4 text-center">@ViewBag.ReportCount</p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                        Du har ingen beskeder
+                    </p>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Beskeder</h4>
+                @if (ViewBag.NotificationCount > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.NotificationCount</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="Notification" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                        Du har ingen ulæste beskeder.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

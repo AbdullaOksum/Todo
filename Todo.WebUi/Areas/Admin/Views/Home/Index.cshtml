@@ -1,0 +1,109 @@
+﻿@{
+
+ Layout = "~/Areas/Admin/Views/shared/_AdminLayout.cshtml";
+}
+
+<div class="row mt-3">
+ <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Opgaver der mangler personale</h4>
+                @if (ViewBag.AssignmentNonStaff > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.AssignmentNonStaff</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="Assignment" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                        Der findes ikke opgaver der mangler personale.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Færdig gjordte opgaver</h4>
+                @if (ViewBag.CompletetAssignmentCount > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.CompletetAssignmentCount</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="WorkOrder" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                   Der findes ingen færdig gjordte opgaver.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+     <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Ulæste beskeder</h4>
+                @if (ViewBag.UnreadedNotificationCount > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.UnreadedNotificationCount</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="Notification" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                  Ingen ulæste beskeder.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+      <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+
+            <div class="card-body">
+                <h4 class="card-title">Total Raport</h4>
+                @if (ViewBag.ReportCount > 0)
+                {
+
+                    <p class="card-text display-4 text-center">@ViewBag.ReportCount</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="Report" class="btn btn-light btn-sm">
+                            <i class="fas fa-chevron-circle-right"></i>
+                            Klik her
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text lead">
+                 Ingen raport
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+
+    </div>

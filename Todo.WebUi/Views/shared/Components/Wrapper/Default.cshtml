@@ -1,0 +1,85 @@
+﻿@model AppUserListDto
+
+@{
+    string active = string.Empty;
+
+    if (TempData["Active"] != null)
+    {
+        active = TempData["Active"].ToString();
+    }
+
+    //string actice2 = TempData["Active"]?.ToString();
+
+
+}
+
+
+
+<div class="border border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+        <img src="~/img/@Model.Picture" alt="@Model.Name" style="height:10rem!important;
+             class="img-thumbnail" />
+    </div>
+
+    <a asp-action="Index" asp-controller="Home"
+       class="list-group-item list-group-item-action mr-2
+                   @(active=="Home"?"active":"")">
+        <i class="fas fa-home mr-2 "></i>
+        Forside
+    </a>
+    <div class="list-group list-group-flush">
+        <a asp-action="Index" asp-controller="Assignment"
+           class="list-group-item list-group-item-action mr-2
+                    @(active=="Assignment"?"active":"")">
+            <i class="fas fa-tasks  mr-2"></i>
+           Opgaver
+        </a>
+        <a asp-action="Index" asp-controller="Urgency"
+           class="list-group-item list-group-item-action mr-2
+                @(active=="Urgency"?"active":"")">
+            <i class="fas fa-exclamation mr-2"></i>
+            Prioritets tilstand
+        </a>
+        <a asp-action="Index" asp-controller="WorkOrder"
+           class="list-group-item list-group-item-action mr-2
+                @(active=="Workorder"?"active":"")">
+            <i class="far fa-file  mr-2"></i>
+            Tildel opgave
+        </a>
+        <a asp-action="Index" asp-controller="Graphic"
+           class="list-group-item list-group-item-action mr-2
+            @(active=="Graphic"?"active":"")">
+            <i class="fas fa-chart-pie mr-3"></i>
+            Statistik
+        </a>
+        <a asp-action="Index" asp-controller="Notification"
+           class="list-group-item list-group-item-action position-relative
+             @(active=="Notification"?"active":"")">
+            <i class="fas fa-bell mr-2"></i>
+            @if (ViewBag.NotificationCount > 0)
+            {
+                <sub class="badge bg-info rounded-pill position-absolute "
+                 style="bottom:0.450rem!important; left:1rem!important;">
+                    <small>
+                        @ViewBag.NotificationCount
+                    </small>
+                </sub>
+            }
+
+
+            Meddelelser
+        </a>
+        <a asp-action="Index" asp-controller="Profile"
+           class="list-group-item list-group-item-action
+                @(active=="Profile"?"active":"")">
+            <i class="fas fa-user mr-2"></i>
+            profilim
+        </a>
+        <a asp-area="" asp-action="Logout" asp-controller="Home"
+           class="list-group-item list-group-item-action  ">
+            <i class="fas fa-sign-out-alt mr-2"></i>
+            Log ud
+        </a>
+
+    </div>
+</div>

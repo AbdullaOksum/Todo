@@ -1,0 +1,23 @@
+﻿@model UrgencyUpdateDto
+@{
+    ViewData["Title"] = "GuncelleUrgency";
+    Layout = "~/Areas/Admin/Views/shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="UpdateUrgency" class="w-75 mx-auto p-3" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Definition"></label>
+        <span asp-validation-for="Definition" class="text-danger"></span>
+        <input asp-for="Definition"  type="text" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-info btn-sm">
+        <i class="fas fa-check" ></i>
+        Gem</button> 
+</form>
+
+@section JavaScript{
+
+    <script src="~/lib/jqueryValidate~/lib/jqueryValidate/jquery.validate.min.js"></script>
+    <script src="~/lib/jqueryUnoob~/lib/jqueryUnoob/jquery.validate.unobtrusive.min.js"></script>
+}

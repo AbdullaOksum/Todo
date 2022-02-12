@@ -1,0 +1,64 @@
+﻿@model List<AssignmentListAllDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/shared/_memberLayout.cshtml";
+    int index = 0;
+}
+@foreach (var item in Model)
+{
+    index++;
+    <div class="card my-1">
+        <h5 class="card-header">@item.Name</h5>
+        <div class="card-body">
+            <h5 class="card-title"> <span class="text-danger">Prioritet: </span> @item.Urgency.Definition</h5>
+            <p class="card-text">@item.Explanation</p>
+            <p class="text-end">
+                @if (item.Reports.Count > 0)
+                {
+                    <a class="btn btn-light btn-sm" data-bs-toggle="collapse"
+               href="#collapseExample-@index" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Se raporter
+                        <i class="fas fa-caret-down ml-2"></i>
+                        <span class="badge bg-dark">@item.Reports.Count</span>
+                    </a>
+                }
+            </p>
+            <div class="collapse" id="collapseExample-@index">
+
+                <table class="table tablehover table-bordered table-sm">
+                    <tr>
+                        <th>navn</th>
+                        <th>Beskrivelse</th>
+                    </tr>
+                    @foreach (var raport in item.Reports)
+                    {
+                        <tr>
+                            <td>@raport.Definition</td>
+                            <td>@raport.Detail</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+<nav aria-label="Page navigation example" class="float-end">
+    <ul class="pagination">
+
+        @for (var i = 1; i <= ViewBag.TotalPage; i++)
+        {
+            <li class="page-item @(ViewBag.ActivePage==i?"active":"")">
+                <a class="page-link" asp-action="Index" asp-route-ActivePage="@i">@i</a>
+
+            </li>
+
+        }
+
+
+    </ul>
+</nav>

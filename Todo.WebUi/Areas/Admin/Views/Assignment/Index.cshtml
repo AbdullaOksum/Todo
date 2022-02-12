@@ -1,0 +1,105 @@
+﻿@model List<AssignmentListDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Count != 0)
+{
+   <a asp-action="CreateAssignment" class="btn btn-outline-dark btn-sm ">
+       <i class="fas fa-plus-circle mr-2"></i>
+       Opret opgave</a>  
+   <table class="table table-sm table-hover mr-2">
+       <tr>
+           <th>Navn</th>
+           <th>Beskrivelse</th>
+           <th>Oprettelses dato</th>
+           <th>Prioritet</th>
+           <th>Behandle</th>
+       </tr>
+       @foreach (var item in Model)
+       {
+           <tr>
+               <td>@item.Name</td>
+               <td>@item.Explanation</td>
+               <td>@item.CreatedDate.ToString("D")</td>
+                 <td>@item.Urgency.Definition</td>
+                 <td>
+                     <a asp-action="UpdateAssignment" asp-route-id="@item.Id"
+                     class=" btn btn-warning btn-sm">
+                     <i class="far fa-edit ml-2"></i>Redigere</a>
+
+                     <a href="" data-bs-toggle="modal" 
+                     data-bs-target="#deleteScreen" data-abdulla="@item.Id" class="btn btn-danger btn-sm">
+                      <i class="fas fa-times-circle ml-2"></i>
+                     Slet</a>
+                    
+                 
+                 </td>
+
+           </tr>
+       }
+   </table>
+
+}
+else
+{
+    
+    <div class="p-3 text-center mt-3">
+     <p class="lead">
+         Der findes ingen opgave i systemet.
+     </p>
+     <a asp-action="CreateAssignment" class="btn btn-info btn-sm p-3">Opret ogave</a>  
+ </div>
+}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteScreen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advarsel!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Er du sikker på at du vil slette ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tilbage</button>
+        <button id="btnDelete" type="button" class="btn btn-primary">Slet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+@section JavaScript{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#deleteScreen").on("show.bs.modal", function (event) {
+                let triggerElement = $(event.relatedTarget);
+                let id = triggerElement.data("abdulla");
+
+                $("#btnDelete").click(function () {
+                    $.ajax({
+                        type: "Get",
+                        url: "./Assignment/DeleteAssignment",
+                        data: {id: id},
+                        dataType: "json",
+                        contentType: "application/json;",
+                        success: function () {
+                           
+                            window.location.reload();
+                        },
+                        error: function (error) {
+                            alert(error.statusText);
+                        }
+                    })
+                });
+            })
+        });
+    </script>
+}

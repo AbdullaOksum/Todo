@@ -1,0 +1,143 @@
+﻿@model List<AssignmentListAllDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/shared/_memberLayout.cshtml";
+    int index = 0;
+}
+
+
+
+@if(@Model.Count <= 0)
+{
+    <p class="lead">
+        Du er ikke tildelt nogen opgave.
+    </p>
+}
+else
+{
+
+@foreach (var item in Model)
+{
+    index++;
+    <div class="card my-1">
+        <h5 class="card-header">@item.Name</h5>
+        <div class="card-body">
+            <h5 class="card-title"> <span class="text-danger">Prioritet: </span> @item.Urgency.Definition</h5>
+            <p class="card-text">@item.Explanation</p>
+
+
+            <p class="text-end">
+                @if (item.Reports.Count > 0)
+                {
+
+                    <a class="btn btn-light btn-sm" data-bs-toggle="collapse"
+               href="#collapseExample-@index" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Se raporter
+                        <i class="fas fa-caret-down ml-2"></i>
+                        <span class="badge bg-dark">@item.Reports.Count</span>
+
+                    </a>
+                }
+                else
+                {
+                    <span class="lead font-weight-bold font-italic d-block text-start mb-1">
+                        Du har endnu ikke skrevet en raport. Husk at skrive om ny raport.
+                    </span>
+
+                    <a asp-action="AddReport" asp-route-id="@item.Id" class="btn btn-light">
+                        <i class="fas fa-plus-circle"></i>
+                        Skriv en ny raport
+                    </a>
+                }
+                <a href="#" class="btn btn-dark btn-sm" data-bs-toggle="modal"
+               data-bs-target="#exampleModal" data-id="@item.Id">
+                    Markere som gennemført
+
+                </a>
+
+            </p>
+            <div class="collapse" id="collapseExample-@index">
+                <a asp-action="AddReport" asp-route-id="@item.Id" class="btn btn-light">
+                    <i class="fas fa-plus-circle"></i>
+                    Skriv en ny raport
+                </a>
+                <table class="table tablehover table-bordered table-sm">
+                    <tr>
+                        <th>Navn</th>
+                        <th>Beskrivelse</th>
+                        <th>Behandle</th>
+                    </tr>
+                    @foreach (var raport in item.Reports)
+                    {
+                        <tr>
+                            <td>@raport.Definition</td>
+                            <td>@raport.Detail</td>
+                            <td>
+                                <a asp-action="UpdateReport" asp-route-id="@raport.Id" class="btn btn-warning btn-sm">
+                                    <i class="far fa-edit me-2"></i>
+                                    Redigere
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+}
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Advarsel!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center lead">
+                er du sikker på at du vil afslutte denne opgave ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
+                <button id="btnSave" type="button" class="btn btn-primary">Gem</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@section JavaScript{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#exampleModal").on("show.bs.modal", function (event) {
+           let triggerelement = $(event.relatedTarget);
+           let data = triggerelement.data("id");
+
+           $("#btnSave").click(function () {
+               $.ajax({
+                   type: "GET",
+                   contentType: "application/json;",
+                   url: "./WorkInProgress/CompleteAssignment",
+                   data: {AssignmentId:data},
+                   success:function () {
+                       window.location.reload();
+                   },
+                    error: function (error) {
+                        alert(error.responseText);
+                    }
+               })
+           })
+
+
+        });
+    });
+
+</script>
+}

@@ -1,0 +1,38 @@
+﻿@model AssignmentListAllDto
+@{
+    ViewData["Title"] = "Detaylandir";
+    Layout = "~/Areas/Admin/Views/shared/_AdminLayout.cshtml";
+}
+
+@if(Model.Reports.Count > 0)
+{
+    <a asp-action="GetExcel" asp-route-id="@Model.Id" target="_blank" class="btn btn-light  my-2 mr-2"> <i class="fas fa-file-excel mr-2"></i> Excel</a>
+     <a asp-action="GetPdf" asp-route-id="@Model.Id" target="_blank" class="btn btn-light my-2 mr-2"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+    <table class="table table-hover table-sm mt-2 text-center table-bordered">
+        <tr>
+             <th colspan="2">Raport fra: @Model.AppUser.Name @Model.AppUser.SurName, om opgaven: @Model.Name
+           </th>
+
+        </tr>
+        <tr>
+            <th>Beskrivelse</th>
+            <th>Detaljer</th>
+        </tr>
+
+        @foreach (var rapor in Model.Reports)
+        {
+            <tr>
+                <td>@rapor.Definition</td>
+                <td>@rapor.Detail</td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <div class="border border-dark mt-2 text-center">
+        @Model.AppUser.Name @Model.AppUser.  er igang med at arbejde med opgaven @Model.Name.
+        Der er endnu ikke angivet en raport til denne opgave.
+    </div>
+}
